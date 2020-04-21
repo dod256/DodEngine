@@ -4,7 +4,7 @@
 class Player
 {
 public:
-	Player() { m_Name = "Random AI"; ID = ++NUMBER_OF_PLAYERS; };
+	Player() { m_Name = "Random AI"; ID = NUMBER_OF_PLAYERS++; };
 	Player(std::string name, bool isAI = true) : m_Name(name), m_IsAI(isAI) { ID = NUMBER_OF_PLAYERS++; };
 	std::string GetName() const { return m_Name; };
 	bool GetIsAI() const { return m_IsAI; };

@@ -10,7 +10,7 @@ class ResetGameButton;
 class GameLoop
 {
 public:
-	GameLoop() {};
+	GameLoop();
 	~GameLoop();
 	bool Init();
 	void Update();

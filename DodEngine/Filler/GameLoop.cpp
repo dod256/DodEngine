@@ -5,6 +5,12 @@
 #include "..\Core\CallbackManager.h"
 #include "ResetGameButton.h"
 
+GameLoop::GameLoop()
+{
+	m_Players.reserve(2);
+	m_ColorSelections.reserve(6);
+}
+
 void GameLoop::ProcessInput()
 {
 	if (glfwGetKey(m_Window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -57,7 +63,7 @@ void GameLoop::UpdateInternal()
 	float y = 580.0f;
 	for (const Player& player : m_Players)
 	{
-		std::string s = player.GetName() + ": " + std::to_string(m_Field.PlayerScore(0));
+		std::string s = player.GetName() + ": " + std::to_string(m_Field.PlayerScore(player.GetID()));
 		TextHelper::RenderText(m_TextShader, s, 20.0f, y, 0.3f, glm::vec3(1.0, 1.0f, 1.0f));
 		y -= 20.0f;		
 	}
@@ -214,6 +220,7 @@ GameLoop::~GameLoop()
 
 void GameLoop::Reset()
 {
+	m_GameEnded = false;
 	m_Field.Reset();
 	for (ColorSelection& colorSelection : m_ColorSelections)
 	{

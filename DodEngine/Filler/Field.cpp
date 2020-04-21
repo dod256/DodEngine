@@ -1,12 +1,21 @@
 #include "Field.h"
-#include "Hex.h"
 #include <cassert>
 #include <iostream>
+
+Field::Hex::Hex(std::vector<Vertex> vertices, std::vector<unsigned int> indices, Color color) : PrimitiveFigure(vertices, indices, color), IDSUMember()
+{
+}
+
+Field::Hex::Hex(const Hex& hex) : PrimitiveFigure(hex), IDSUMember(hex)
+{
+}
+
 
 void Field::Reset()
 {
 	m_Hexes.clear();
 	m_StartingPositions.clear();
+	m_Colors.clear();
 	Init();
 }
 
@@ -36,6 +45,13 @@ Field::~Field()
 
 void Field::Init()
 {
+	m_Colors.push_back(Color(0.0f, 0.0f, 1.0f, 1.0f));
+	m_Colors.push_back(Color(0.0f, 1.0f, 0.0f, 1.0f));
+	m_Colors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
+	m_Colors.push_back(Color(0.0f, 1.0f, 1.0f, 1.0f));
+	m_Colors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
+	m_Colors.push_back(Color(1.0f, 0.0f, 1.0f, 1.0f));
+
 	float a = 0.02f;
 	float b = 0.04f;
 
@@ -65,33 +81,7 @@ void Field::Init()
 				2, 3, 4
 			};
 
-			Color color;
-
-			switch (rand() % 6)
-			{
-			case 0:
-				color = Color(0.0f, 0.0f, 1.0f, 1.0f);
-				break;
-			case 1:
-				color = Color(0.0f, 1.0f, 0.0f, 1.0f);
-				break;
-			case 2:
-				color = Color(1.0f, 0.0f, 0.0f, 1.0f);
-				break;
-			case 3:
-				color = Color(0.0f, 1.0f, 1.0f, 1.0f);
-				break;
-			case 4:
-				color = Color(1.0f, 1.0f, 0.0f, 1.0f);
-				break;
-			case 5:
-				color = Color(1.0f, 0.0f, 1.0f, 1.0f);
-				break;
-			default:
-				color = Color(0.5f, 0.5f, 1.0f, 1.0f);
-			}
-
-			m_Hexes[i].push_back(Hex(vertices, indices, color));
+			m_Hexes[i].push_back(Hex(vertices, indices, m_Colors[rand() % m_Colors.size()]));
 
 			if (j > 0)
 			{
@@ -136,6 +126,8 @@ void Field::Init()
 
 Field::Field()
 {
+	m_StartingPositions.reserve(2);
+	m_Colors.reserve(6);
 }
 
 void Field::Draw(const Shader& shader) const

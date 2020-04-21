@@ -166,7 +166,7 @@
     <ClCompile Include="Filler\Field.cpp" />
     <ClCompile Include="Filler\GameLoop.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="Filler\Hex.cpp" />
+    <ClCompile Include="Core\Render\Hex.cpp" />
     <ClCompile Include="Core\IClickable.cpp" />
     <ClCompile Include="Core\Render\IDrawable.cpp" />
     <ClCompile Include="Core\IDSUMember.cpp" />
@@ -188,7 +188,7 @@
     <ClInclude Include="Core\Constants.h" />
     <ClInclude Include="Filler\Field.h" />
     <ClInclude Include="Filler\GameLoop.h" />
-    <ClInclude Include="Filler\Hex.h" />
+    <ClInclude Include="Core\Render\Hex.h" />
     <ClInclude Include="Core\IClickable.h" />
     <ClInclude Include="Core\Render\IDrawable.h" />
     <ClInclude Include="Core\IDSUMember.h" />

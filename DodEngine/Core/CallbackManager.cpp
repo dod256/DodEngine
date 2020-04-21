@@ -39,6 +39,7 @@ void CallbackManager::OnClick(GLFWwindow* window, int _button, int action, int m
 	{
 		double x, y;
 		glfwGetCursorPos(window, &x, &y);
+		std::cout << "Mouse click: " << x << " " << y << std::endl;
 		OnClickInternal(x, y);
 	}
 }
