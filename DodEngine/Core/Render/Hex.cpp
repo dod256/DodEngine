@@ -1,10 +1,10 @@
 #pragma once
 #include "Hex.h"
 
-Hex::Hex(std::vector<Vertex> vertices, std::vector<unsigned int> indices, Color color) : PrimitiveFigure(vertices, indices, color)
+Hex::Hex(std::vector<DVec4> vertices, Color color) : DArea(vertices, color)
 {
 }
 
-Hex::Hex(const Hex& hex) : PrimitiveFigure(hex)
+Hex::Hex(const Hex& hex) : DArea(hex)
 {
 }

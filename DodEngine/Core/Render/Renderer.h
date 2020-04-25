@@ -7,7 +7,8 @@
 class Renderer
 {
 public:
-	static std::pair<float, float> WindowCoordToViewportCoord(std::pair<float, float> originalCoordinates);
+	static std::pair<float, float> MouseCoordToViewportCoord(std::pair<float, float> originalCoordinates);
+	static std::pair<float, float> WorldCoordToViewportCoord(std::pair<float, float> originalCoordinates);
 	//void Register(DU32 ID, IDrawable* object);
 	//void Unregister(DU32 ID);
 	//void Draw(DU32 ID);

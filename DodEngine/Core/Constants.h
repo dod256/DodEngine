@@ -1,6 +1,8 @@
+#pragma once
+#include "precomp.h"
+
 #define DEFAULT_WINDOWS_WIDTH (1000)
 #define DEFAULT_WINDOWS_HEIGHT (600)
-#define FIELD_SIZE_X (30)
-#define FIELD_SIZE_Y (40)
-
-typedef unsigned int DU32;
+#define FIELD_SIZE_X (40)
+#define FIELD_SIZE_Y (30)
+#define EPS (1e-5)

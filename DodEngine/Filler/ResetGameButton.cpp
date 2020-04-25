@@ -14,7 +14,7 @@ ResetGameButton::ResetGameButton(const ResetGameButton& button) : IClickable(), 
 
 void ResetGameButton::OnClick(float mouseXPos, float mouseYPos) const
 {
-	std::pair<float, float> newCoord = Renderer::WindowCoordToViewportCoord(std::make_pair(mouseXPos, mouseYPos));
+	std::pair<float, float> newCoord = Renderer::MouseCoordToViewportCoord(std::make_pair(mouseXPos, mouseYPos));
 	std::vector<Vertex> vertices = GetVertices();
 	if (vertices[0].GetX() <= newCoord.first && newCoord.first <= vertices[2].GetX() &&
 		vertices[0].GetY() <= newCoord.second && newCoord.second <= vertices[2].GetY())

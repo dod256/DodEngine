@@ -102,6 +102,7 @@ void GameLoop::CreateResetGameButton(float x, float y, float a, float b, Color c
 	0, 2, 3
 	};
 	m_Reset = new ResetGameButton(vertices, indices, color, this);
+	m_Reset->Init();
 }
 
 void GameLoop::AddColorSelection(float x, float y, float a, float b, Color color, Field* field)
@@ -116,6 +117,7 @@ void GameLoop::AddColorSelection(float x, float y, float a, float b, Color color
 	0, 2, 3
 	};
 	m_ColorSelections.push_back(ColorSelection(vertices, indices, color, field));
+	m_ColorSelections[m_ColorSelections.size() - 1].Init();
 }
 
 bool GameLoop::Init()
@@ -158,39 +160,15 @@ bool GameLoop::Init()
 	glfwSetMouseButtonCallback(m_Window, CallbackManager::OnClick);
 
 	m_Shader = Shader("hex.vs", "hex.fs");
+	Renderer::m_Window = m_Window;
 
 	m_Field.Init();
 
-	Renderer::m_Window = m_Window;
+	const std::vector<Color>& colors = m_Field.GetColors();
 
-	for (int i = 0; i < 6; ++i)
+	for(DU32 i = 0; i < colors.size(); ++i)
 	{
-		Color color;
-
-		switch (i)
-		{
-		case 0:
-			color = Color(0.0f, 0.0f, 1.0f, 1.0f);
-			break;
-		case 1:
-			color = Color(0.0f, 1.0f, 0.0f, 1.0f);
-			break;
-		case 2:
-			color = Color(1.0f, 0.0f, 0.0f, 1.0f);
-			break;
-		case 3:
-			color = Color(0.0f, 1.0f, 1.0f, 1.0f);
-			break;
-		case 4:
-			color = Color(1.0f, 1.0f, 0.0f, 1.0f);
-			break;
-		case 5:
-			color = Color(1.0f, 0.0f, 1.0f, 1.0f);
-			break;
-		default:
-			color = Color(0.5f, 0.5f, 1.0f, 1.0f);
-		}
-		AddColorSelection(-1.0f + 0.2f + i * 0.3f, -1.0f + 0.1f, 0.1f, 0.03f, color, &m_Field);
+		AddColorSelection(-1.0f + 0.2f + i * 0.3f, -1.0f + 0.1f, 0.1f, 0.03f, colors[i], &m_Field);
 	}
 
 	Color resetColor(0.5f, 0.5f, 1.0f, 1.0f);

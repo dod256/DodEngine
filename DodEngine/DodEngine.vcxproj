@@ -158,10 +158,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Render\DArea.cpp" />
+    <ClCompile Include="Core\Math\DVector.cpp" />
     <ClCompile Include="Filler\Button.cpp" />
     <ClCompile Include="Filler\ButtonHelper.cpp" />
     <ClCompile Include="Core\CallbackManager.cpp" />
-    <ClCompile Include="Core\Color.cpp" />
+    <ClCompile Include="Core\Render\Color.cpp" />
     <ClCompile Include="Filler\ColorSelection.cpp" />
     <ClCompile Include="Filler\Field.cpp" />
     <ClCompile Include="Filler\GameLoop.cpp" />
@@ -177,13 +179,16 @@
     <ClCompile Include="Core\Render\Renderer.cpp" />
     <ClCompile Include="Filler\ResetGameButton.cpp" />
     <ClCompile Include="Core\Render\TextHelper.cpp" />
-    <ClCompile Include="Core\Vertex.cpp" />
+    <ClCompile Include="Core\Render\Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\precomp.h" />
+    <ClInclude Include="Core\Render\DArea.h" />
+    <ClInclude Include="Core\Math\DVector.h" />
     <ClInclude Include="Filler\Button.h" />
     <ClInclude Include="Filler\ButtonHelper.h" />
     <ClInclude Include="Core\CallbackManager.h" />
-    <ClInclude Include="Core\Color.h" />
+    <ClInclude Include="Core\Render\Color.h" />
     <ClInclude Include="Filler\ColorSelection.h" />
     <ClInclude Include="Core\Constants.h" />
     <ClInclude Include="Filler\Field.h" />
@@ -198,7 +203,7 @@
     <ClInclude Include="Core\Render\Renderer.h" />
     <ClInclude Include="Filler\ResetGameButton.h" />
     <ClInclude Include="Core\Render\TextHelper.h" />
-    <ClInclude Include="Core\Vertex.h" />
+    <ClInclude Include="Core\Render\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="hex.fs" />

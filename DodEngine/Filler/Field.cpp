@@ -2,11 +2,11 @@
 #include <cassert>
 #include <iostream>
 
-Field::Hex::Hex(std::vector<Vertex> vertices, std::vector<unsigned int> indices, Color color) : PrimitiveFigure(vertices, indices, color), IDSUMember()
+Field::Hex::Hex(std::vector<DVec4> vertices, Color color) : DArea(vertices, color), IDSUMember()
 {
 }
 
-Field::Hex::Hex(const Hex& hex) : PrimitiveFigure(hex), IDSUMember(hex)
+Field::Hex::Hex(const Hex& hex) : DArea(hex), IDSUMember(hex)
 {
 }
 
@@ -52,13 +52,13 @@ void Field::Init()
 	m_Colors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
 	m_Colors.push_back(Color(1.0f, 0.0f, 1.0f, 1.0f));
 
-	float a = 0.02f;
-	float b = 0.04f;
+	DFloat a = 8.0f;
+	DFloat b = 12.0f;
+	DFloat x = 100.0f + b;
 
-	float x = -0.9f + b;
 	for (unsigned int i = 0; i < FIELD_SIZE_X; ++i)
 	{
-		float y = -0.8f + a;
+		DFloat y = 60.0f + a;
 		if (i % 2)
 		{
 			y += a;
@@ -66,22 +66,15 @@ void Field::Init()
 		m_Hexes.push_back(std::vector<Hex>());
 		for (unsigned int j = 0; j < FIELD_SIZE_Y; ++j)
 		{
-			std::vector<Vertex> vertices;
-			vertices.push_back(Vertex(x - b, y));
-			vertices.push_back(Vertex(x - a, y + a));
-			vertices.push_back(Vertex(x + a, y + a));
-			vertices.push_back(Vertex(x + b, y));
-			vertices.push_back(Vertex(x + a, y - a));
-			vertices.push_back(Vertex(x - a, y - a));
+			std::vector<DVec4> vertices;
+			vertices.push_back(DVec4(x - b, y, 0.0f, 0.0f));
+			vertices.push_back(DVec4(x - a, y + a, 0.0f, 0.0f));
+			vertices.push_back(DVec4(x + a, y + a, 0.0f, 0.0f));
+			vertices.push_back(DVec4(x + b, y, 0.0f, 0.0f));
+			vertices.push_back(DVec4(x + a, y - a, 0.0f, 0.0f));
+			vertices.push_back(DVec4(x - a, y - a, 0.0f, 0.0f));
 
-			std::vector<unsigned int> indices = {
-				0, 1, 5,
-				1, 4, 5,
-				1, 2, 4,
-				2, 3, 4
-			};
-
-			m_Hexes[i].push_back(Hex(vertices, indices, m_Colors[rand() % m_Colors.size()]));
+			m_Hexes[i].push_back(Hex(vertices, m_Colors[rand() % m_Colors.size()]));
 
 			if (j > 0)
 			{
@@ -120,6 +113,14 @@ void Field::Init()
 		x += b + a;
 	}
 
+	for(std::vector<Hex>& column : m_Hexes)
+	{
+		for(Hex& hex : column)
+		{
+			hex.Init();
+		}
+	}
+
 	m_StartingPositions.push_back(std::make_pair(0, 0));
 	m_StartingPositions.push_back(std::make_pair(FIELD_SIZE_X - 1, FIELD_SIZE_Y - 1));
 }
@@ -132,9 +133,9 @@ Field::Field()
 
 void Field::Draw(const Shader& shader) const
 {
-	for (const std::vector<Hex> column : m_Hexes)
+	for (const std::vector<Hex>& column : m_Hexes)
 	{
-		for (Hex hex : column)
+		for (const Hex& hex : column)
 		{
 			hex.Draw(shader);
 		}

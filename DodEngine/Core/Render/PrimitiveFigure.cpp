@@ -12,7 +12,6 @@ PrimitiveFigure::PrimitiveFigure(std::vector<Vertex> vertices, std::vector<unsig
 	m_Vertices = std::vector<Vertex>(vertices.begin(), vertices.end());
 	m_Indices = std::vector<unsigned int>(indices.begin(), indices.end());
 	m_Color = color;
-	Init();
 }
 
 PrimitiveFigure::PrimitiveFigure(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
@@ -20,7 +19,6 @@ PrimitiveFigure::PrimitiveFigure(std::vector<Vertex> vertices, std::vector<unsig
 	m_Vertices = std::vector<Vertex>(vertices.begin(), vertices.end());
 	m_Indices = std::vector<unsigned int>(indices.begin(), indices.end());
 	m_Color = Color(0.0f, 0.0f, 0.0f, 1.0f);
-	Init();
 }
 
 PrimitiveFigure::PrimitiveFigure(const PrimitiveFigure& object)
@@ -28,7 +26,6 @@ PrimitiveFigure::PrimitiveFigure(const PrimitiveFigure& object)
 	m_Vertices = std::vector<Vertex>(object.m_Vertices.begin(), object.m_Vertices.end());
 	m_Indices = std::vector<unsigned int>(object.m_Indices.begin(), object.m_Indices.end());
 	m_Color = object.m_Color;
-	Init();
 }
 
 PrimitiveFigure::~PrimitiveFigure()

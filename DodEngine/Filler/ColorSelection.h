@@ -1,8 +1,8 @@
 #pragma once
 #include "..\Core\IClickable.h"
 #include "..\Core\Render\PrimitiveFigure.h"
-#include "..\Core\Vertex.h"
-#include "..\Core\Color.h"
+#include "..\Core\Render\Vertex.h"
+#include "..\Core\Render\Color.h"
 
 class Field;
 
