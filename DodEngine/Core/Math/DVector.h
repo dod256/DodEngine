@@ -9,8 +9,21 @@ public:
 	DVec4(std::vector<DFloat> values);
 	DVec4(DFloat x1, DFloat x2, DFloat x3, DFloat x4);
 	DVec4(const DVec4& vec4);
-	DFloat& operator[] (int index);
+	DFloat& operator[] (int index) const;
 private:
 	static const DU32 DVEC4_SIZE = 4;
-	DFloat m_Values[DVEC4_SIZE];
+	mutable DFloat m_Values[DVEC4_SIZE];
+};
+
+class DVec2
+{
+public:
+	DVec2();
+	DVec2(std::vector<DFloat> values);
+	DVec2(DFloat x1, DFloat x2);
+	DVec2(const DVec2& vec2);
+	DFloat& operator[] (int index) const;
+private:
+	static const DU32 DVEC2_SIZE = 2;
+	mutable DFloat m_Values[DVEC2_SIZE];
 };

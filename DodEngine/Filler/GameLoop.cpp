@@ -4,6 +4,7 @@
 #include "..\Core\Render\TextHelper.h"
 #include "..\Core\CallbackManager.h"
 #include "ResetGameButton.h"
+#include <functional>
 
 GameLoop::GameLoop()
 {
@@ -55,10 +56,8 @@ void GameLoop::UpdateInternal()
 		}
 	}
 
-	if (m_Reset)
-	{
-		m_Reset->Draw(m_Shader);
-	}
+	m_TextureShader.Use();
+	m_Reset.Draw(m_Shader);
 
 	float y = 580.0f;
 	for (const Player& player : m_Players)
@@ -67,9 +66,7 @@ void GameLoop::UpdateInternal()
 		TextHelper::RenderText(m_TextShader, s, 20.0f, y, 0.3f, glm::vec3(1.0, 1.0f, 1.0f));
 		y -= 20.0f;		
 	}
-
-	TextHelper::RenderText(m_TextShader, "Reset", 480.0f, 565.0f, 0.3f, glm::vec3(1.0, 1.0f, 1.0f));
-
+	//TextHelper::RenderText(m_TextShader, "Reset", 480.0f, 565.0f, 0.3f, glm::vec3(1.0, 1.0f, 1.0f));
 }
 
 void GameLoop::Update()
@@ -88,21 +85,6 @@ void GameLoop::FramebufferSizeCallback(GLFWwindow* window, int width, int height
 bool GameLoop::IsStopped()
 {
 	return glfwWindowShouldClose(m_Window);
-}
-
-void GameLoop::CreateResetGameButton(float x, float y, float a, float b, Color color)
-{
-	std::vector<Vertex> vertices;
-	vertices.push_back(Vertex(x - a, y - b));
-	vertices.push_back(Vertex(x - a, y + b));
-	vertices.push_back(Vertex(x + a, y + b));
-	vertices.push_back(Vertex(x + a, y - b));
-	std::vector<unsigned int> indices = {
-	0, 1, 2,
-	0, 2, 3
-	};
-	m_Reset = new ResetGameButton(vertices, indices, color, this);
-	m_Reset->Init();
 }
 
 void GameLoop::AddColorSelection(float x, float y, float a, float b, Color color, Field* field)
@@ -160,6 +142,8 @@ bool GameLoop::Init()
 	glfwSetMouseButtonCallback(m_Window, CallbackManager::OnClick);
 
 	m_Shader = Shader("hex.vs", "hex.fs");
+	m_DefaultShader = Shader("Default.vs", "Default.fs");
+	m_TextureShader = Shader("Texture.vs", "Texture.fs");
 	Renderer::m_Window = m_Window;
 
 	m_Field.Init();
@@ -171,8 +155,26 @@ bool GameLoop::Init()
 		AddColorSelection(-1.0f + 0.2f + i * 0.3f, -1.0f + 0.1f, 0.1f, 0.03f, colors[i], &m_Field);
 	}
 
-	Color resetColor(0.5f, 0.5f, 1.0f, 1.0f);
-	CreateResetGameButton(0.0f, 0.9f, 0.1f, 0.03f, resetColor);
+	std::vector<DVertex> resetVertices(4);
+	resetVertices[0].SetPosition(DVec4(120.0f, DEFAULT_WINDOWS_HEIGHT - 40.0f, 0.0f, 1.0f));
+	resetVertices[1].SetPosition(DVec4(120.0f, DEFAULT_WINDOWS_HEIGHT - 10.0f, 0.0f, 1.0f));
+	resetVertices[2].SetPosition(DVec4(150.0f, DEFAULT_WINDOWS_HEIGHT - 10.0f, 0.0f, 1.0f));
+	resetVertices[3].SetPosition(DVec4(150.0f, DEFAULT_WINDOWS_HEIGHT - 40.0f, 0.0f, 1.0f));
+	//resetVertices[0].SetPosition(DVec4(470.0f, 470.0f, 0.0f, 1.0f));
+	//resetVertices[1].SetPosition(DVec4(470.0f, 20.0f, 0.0f, 1.0f));
+	//resetVertices[2].SetPosition(DVec4(20.0f, 20.0f, 0.0f, 1.0f));
+	//resetVertices[3].SetPosition(DVec4(20.0f, 470.0f, 0.0f, 1.0f));
+	resetVertices[0].SetColor(DVec4(1.0f, 0.0f, 0.0f, 1.0f));
+	resetVertices[1].SetColor(DVec4(0.0f, 1.0f, 0.0f, 1.0f));
+	resetVertices[2].SetColor(DVec4(0.0f, 0.0f, 1.0f, 1.0f));
+	resetVertices[3].SetColor(DVec4(1.0f, 1.0f, 0.0f, 1.0f));
+	resetVertices[0].SetTexturePosition(DVec2(1.0f, 1.0f));
+	resetVertices[1].SetTexturePosition(DVec2(1.0f, 0.0f));
+	resetVertices[2].SetTexturePosition(DVec2(0.0f, 0.0f));
+	resetVertices[3].SetTexturePosition(DVec2(0.0f, 1.0f));
+	std::function<void()> fieldReset = std::bind(&Field::Reset, &m_Field);
+	m_Reset = Button(resetVertices, fieldReset);
+	m_Reset.Init();
 
 	// Set OpenGL options
 	//glEnable(GL_CULL_FACE);
@@ -193,7 +195,6 @@ bool GameLoop::Init()
 
 GameLoop::~GameLoop()
 {
-	delete m_Reset;
 }
 
 void GameLoop::Reset()

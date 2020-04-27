@@ -2,11 +2,11 @@
 #include <cassert>
 #include <iostream>
 
-Field::Hex::Hex(std::vector<DVec4> vertices, Color color) : DArea(vertices, color), IDSUMember()
+Field::Hex::Hex(std::vector<DVec4> vertices, Color color) : DPolygon(vertices, color), IDSUMember()
 {
 }
 
-Field::Hex::Hex(const Hex& hex) : DArea(hex), IDSUMember(hex)
+Field::Hex::Hex(const Hex& hex) : DPolygon(hex), IDSUMember(hex)
 {
 }
 

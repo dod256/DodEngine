@@ -15,7 +15,7 @@ ColorSelection::ColorSelection(const ColorSelection& button) : IClickable(), Pri
 
 void ColorSelection::OnClick(float mouseXPos, float mouseYPos) const
 {
-	std::pair<float, float> newCoord = Renderer::MouseCoordToViewportCoord(std::make_pair(mouseXPos, mouseYPos));
+	std::pair<float, float> newCoord = Renderer::MouseToViewport(std::make_pair(mouseXPos, mouseYPos));
 	std::vector<Vertex> vertices = GetVertices();
 	if (vertices[0].GetX() <= newCoord.first && newCoord.first <= vertices[2].GetX() &&
 		vertices[0].GetY() <= newCoord.second && newCoord.second <= vertices[2].GetY())

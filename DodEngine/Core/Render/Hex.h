@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
-#include "DArea.h"
+#include "DPolygon.h"
 
-class Hex : public DArea
+class Hex : public DPolygon
 {
 public:
 	Hex(std::vector<DVec4> vertices, Color color = Color(0.0f, 0.0f, 0.0f, 1.0f));

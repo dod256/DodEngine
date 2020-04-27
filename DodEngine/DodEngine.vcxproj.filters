@@ -42,9 +42,6 @@
     <ClCompile Include="Core\IClickable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Filler\Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Filler\ButtonHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,9 +72,6 @@
     <ClCompile Include="Core\Render\Hex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Render\DArea.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Render\Vertex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -85,6 +79,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\Math\DVector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Render\DVertex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Render\DPolygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Math\DPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Math\MathHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -102,9 +111,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\IClickable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Filler\Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Filler\ButtonHelper.h">
@@ -140,9 +146,6 @@
     <ClInclude Include="Core\Render\Hex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Render\DArea.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Render\Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -153,6 +156,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\precomp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\External\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Render\DVertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Render\DPolygon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Math\DPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Math\MathHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -187,6 +208,10 @@
     <None Include="Triangle3.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="Default.fs" />
+    <None Include="Default.vs" />
+    <None Include="Texture.vs" />
+    <None Include="Texture.fs" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf">

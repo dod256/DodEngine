@@ -2,14 +2,14 @@
 #include "..\Core\Constants.h"
 #include "..\Core\Render\IDrawable.h"
 #include "..\Core\Render\Color.h"
-#include "..\Core\Render\DArea.h"
+#include "..\Core\Render\DPolygon.h"
 #include "..\Core\IDSUMember.h"
 
 class Field : public IDrawable
 {
 public:
 
-	class Hex : public DArea, public IDSUMember
+	class Hex : public DPolygon, public IDSUMember
 	{
 	public:
 		Hex(std::vector<DVec4> vertices, Color color = Color(0.0f, 0.0f, 0.0f, 1.0f));

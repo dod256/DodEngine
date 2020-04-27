@@ -2,25 +2,38 @@
 #include <algorithm>
 #include <iostream>
 
-void Button::OnClick(GLFWwindow* window, int button, int action, int mods) const
+#include "Render\Renderer.h"
+
+Button::Button(std::vector<DVec4> vertices, Color color, std::function<void()> onClickFunc)
 {
-	if (action)
+	m_OnClickFunc = onClickFunc;
+	m_Polygon = DPolygon(vertices, color);
+}
+
+Button::Button(const std::vector<DVertex>& vertices, std::function<void()> onClickFunc)
+{
+	m_OnClickFunc = onClickFunc;
+	m_Polygon = DPolygon(vertices);
+}
+
+void Button::OnClick(float mouseXPos, float mouseYPos) const
+{
+	//ToDo Is Inside Polygon
+	std::pair<float, float> newCoord = Renderer::MouseToWorld(std::make_pair(mouseXPos, mouseYPos));
+	const std::vector<DVertex>& vertices = m_Polygon.GetVertices();
+	if (vertices[1].GetPosition()[0] <= newCoord.first && newCoord.first <= vertices[3].GetPosition()[0] &&
+		vertices[1].GetPosition()[1] <= newCoord.second && newCoord.second <= vertices[3].GetPosition()[1])
 	{
-		return;
+		m_OnClickFunc();
 	}
-	double x, y;
-	glfwGetCursorPos(window, &x, &y);
-	int width, height;
-	glfwGetWindowSize(window, &width, &height);
-	x = (2 * x - width) / (width);
-	y = (height - 2 * y) / (height);
-	std::vector<Vertex> vertices = GetVertices();
-	std::cout << "Click: " << x << " " << y << " Button: " << vertices[0].GetX() << " " << vertices[0].GetY() << " " << vertices[2].GetX() << " " << vertices[2].GetY();
-	if (vertices[0].GetX() <= x && x <= vertices[2].GetX() &&
-		vertices[0].GetY() <= y && y <= vertices[2].GetY())
-	{
-		std::cout << " CLICK";
-		OnClickInternal();
-	}
-	std::cout << std::endl;
+}
+
+void Button::Draw(const Shader& shader) const
+{
+	m_Polygon.Draw(shader);
+}
+
+void Button::Init()
+{
+	m_Polygon.Init();
 }

@@ -158,9 +158,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Core\Render\DArea.cpp" />
+    <ClCompile Include="Core\Render\DPolygon.cpp" />
     <ClCompile Include="Core\Math\DVector.cpp" />
-    <ClCompile Include="Filler\Button.cpp" />
+    <ClCompile Include="Core\Button.cpp" />
+    <ClCompile Include="Core\Render\DVertex.cpp" />
+    <ClCompile Include="Core\Math\DPoint.cpp" />
     <ClCompile Include="Filler\ButtonHelper.cpp" />
     <ClCompile Include="Core\CallbackManager.cpp" />
     <ClCompile Include="Core\Render\Color.cpp" />
@@ -180,12 +182,16 @@
     <ClCompile Include="Filler\ResetGameButton.cpp" />
     <ClCompile Include="Core\Render\TextHelper.cpp" />
     <ClCompile Include="Core\Render\Vertex.cpp" />
+    <ClCompile Include="Core\Math\MathHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\External\stb_image.h" />
     <ClInclude Include="Core\precomp.h" />
-    <ClInclude Include="Core\Render\DArea.h" />
+    <ClInclude Include="Core\Render\DPolygon.h" />
     <ClInclude Include="Core\Math\DVector.h" />
-    <ClInclude Include="Filler\Button.h" />
+    <ClInclude Include="Core\Button.h" />
+    <ClInclude Include="Core\Render\DVertex.h" />
+    <ClInclude Include="Core\Math\DPoint.h" />
     <ClInclude Include="Filler\ButtonHelper.h" />
     <ClInclude Include="Core\CallbackManager.h" />
     <ClInclude Include="Core\Render\Color.h" />
@@ -204,12 +210,17 @@
     <ClInclude Include="Filler\ResetGameButton.h" />
     <ClInclude Include="Core\Render\TextHelper.h" />
     <ClInclude Include="Core\Render\Vertex.h" />
+    <ClInclude Include="Core\Math\MathHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Default.fs" />
+    <None Include="Default.vs" />
     <None Include="hex.fs" />
     <None Include="hex.vs" />
     <None Include="TextShader.fs" />
     <None Include="TextShader.vs" />
+    <None Include="Texture.fs" />
+    <None Include="Texture.vs" />
     <None Include="Triangle1.fs" />
     <None Include="Triangle1.vs" />
     <None Include="Triangle2.fs" />
