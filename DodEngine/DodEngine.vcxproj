@@ -163,6 +163,7 @@
     <ClCompile Include="Core\Button.cpp" />
     <ClCompile Include="Core\Render\DVertex.cpp" />
     <ClCompile Include="Core\Math\DPoint.cpp" />
+    <ClCompile Include="Core\Math\DLine.cpp" />
     <ClCompile Include="Filler\ButtonHelper.cpp" />
     <ClCompile Include="Core\CallbackManager.cpp" />
     <ClCompile Include="Core\Render\Color.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Core\Button.h" />
     <ClInclude Include="Core\Render\DVertex.h" />
     <ClInclude Include="Core\Math\DPoint.h" />
+    <ClInclude Include="Core\Math\DLine.h" />
     <ClInclude Include="Filler\ButtonHelper.h" />
     <ClInclude Include="Core\CallbackManager.h" />
     <ClInclude Include="Core\Render\Color.h" />

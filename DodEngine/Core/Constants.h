@@ -5,4 +5,3 @@
 #define DEFAULT_WINDOWS_HEIGHT (600)
 #define FIELD_SIZE_X (40)
 #define FIELD_SIZE_Y (30)
-#define EPS (1e-5)
