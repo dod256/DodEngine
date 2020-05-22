@@ -20,7 +20,7 @@ public:
 	void Reset();
 private:
 	static void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
-	void AddColorSelection(float x, float y, float a, float b, Color color, Field* field);
+	void AddColorSelection(float x, float y, float a, float b, Color color);
 	void ProcessInput();
 	void UpdateInternal();
 	Shader m_Shader;

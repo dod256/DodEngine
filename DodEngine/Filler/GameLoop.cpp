@@ -46,7 +46,7 @@ void GameLoop::UpdateInternal()
 		}
 	}
 
-	m_Shader.Use();
+	m_DefaultShader.Use();
 	m_Field.Draw(m_Shader);
 	if (!m_GameEnded)
 	{
@@ -87,18 +87,21 @@ bool GameLoop::IsStopped()
 	return glfwWindowShouldClose(m_Window);
 }
 
-void GameLoop::AddColorSelection(float x, float y, float a, float b, Color color, Field* field)
+void GameLoop::AddColorSelection(float x, float y, float a, float b, Color color)
 {
-	std::vector<Vertex> vertices;
-	vertices.push_back(Vertex(x - a, y - b));
-	vertices.push_back(Vertex(x - a, y + b));
-	vertices.push_back(Vertex(x + a, y + b));
-	vertices.push_back(Vertex(x + a, y - b));
-	std::vector<unsigned int> indices = {
-	0, 1, 2,
-	0, 2, 3
-	};
-	m_ColorSelections.push_back(ColorSelection(vertices, indices, color, field));
+	std::vector<DVertex> vertices(4);
+	vertices[0].SetPosition(DVec4(x - a, y - b, 0.0f, 1.0f));
+	vertices[1].SetPosition(DVec4(x + a, y - b, 0.0f, 1.0f));
+	vertices[2].SetPosition(DVec4(x + a, y + b, 0.0f, 1.0f));
+	vertices[3].SetPosition(DVec4(x - a, y + b, 0.0f, 1.0f));
+	vertices[0].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+	vertices[1].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+	vertices[2].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+	vertices[3].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+	
+	std::function<void(Color color)> fieldPlayerTurn = std::bind(&Field::PlayerTurn, &m_Field, color);
+
+	m_ColorSelections.push_back(ColorSelection(vertices, fieldPlayerTurn, color));
 	m_ColorSelections[m_ColorSelections.size() - 1].Init();
 }
 
@@ -132,12 +135,6 @@ bool GameLoop::Init()
 	std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 
 	srand(std::time(0));
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
 
 	glfwSetMouseButtonCallback(m_Window, CallbackManager::OnClick);
 
@@ -152,7 +149,8 @@ bool GameLoop::Init()
 
 	for(DU32 i = 0; i < colors.size(); ++i)
 	{
-		AddColorSelection(-1.0f + 0.2f + i * 0.3f, -1.0f + 0.1f, 0.1f, 0.03f, colors[i], &m_Field);
+		//AddColorSelection(-1.0f + 0.2f + i * 0.3f, -1.0f + 0.1f, 0.1f, 0.03f, colors[i]);
+		AddColorSelection(140.0f + i * 140.0f, 30.0f, 40.0f, 10.0f, colors[i]);
 	}
 
 	std::vector<DVertex> resetVertices(4);
@@ -160,10 +158,6 @@ bool GameLoop::Init()
 	resetVertices[1].SetPosition(DVec4(120.0f, DEFAULT_WINDOWS_HEIGHT - 10.0f, 0.0f, 1.0f));
 	resetVertices[2].SetPosition(DVec4(150.0f, DEFAULT_WINDOWS_HEIGHT - 10.0f, 0.0f, 1.0f));
 	resetVertices[3].SetPosition(DVec4(150.0f, DEFAULT_WINDOWS_HEIGHT - 40.0f, 0.0f, 1.0f));
-	//resetVertices[0].SetPosition(DVec4(470.0f, 470.0f, 0.0f, 1.0f));
-	//resetVertices[1].SetPosition(DVec4(470.0f, 20.0f, 0.0f, 1.0f));
-	//resetVertices[2].SetPosition(DVec4(20.0f, 20.0f, 0.0f, 1.0f));
-	//resetVertices[3].SetPosition(DVec4(20.0f, 470.0f, 0.0f, 1.0f));
 	resetVertices[0].SetColor(DVec4(1.0f, 0.0f, 0.0f, 1.0f));
 	resetVertices[1].SetColor(DVec4(0.0f, 1.0f, 0.0f, 1.0f));
 	resetVertices[2].SetColor(DVec4(0.0f, 0.0f, 1.0f, 1.0f));
@@ -172,9 +166,11 @@ bool GameLoop::Init()
 	resetVertices[1].SetTexturePosition(DVec2(1.0f, 0.0f));
 	resetVertices[2].SetTexturePosition(DVec2(0.0f, 0.0f));
 	resetVertices[3].SetTexturePosition(DVec2(0.0f, 1.0f));
-	std::function<void()> fieldReset = std::bind(&Field::Reset, &m_Field);
+	//std::function<void()> fieldReset = std::bind(&Field::Reset, &m_Field);
+	std::function<void()> fieldReset = std::bind(&GameLoop::Reset, this);
 	m_Reset = Button(resetVertices, fieldReset);
 	m_Reset.Init();
+	m_Reset.InitTexture("kosh.jpeg");
 
 	// Set OpenGL options
 	//glEnable(GL_CULL_FACE);

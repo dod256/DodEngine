@@ -2,14 +2,32 @@
 #include <cassert>
 #include <iostream>
 
-Field::Hex::Hex(std::vector<DVec4> vertices, Color color) : DPolygon(vertices, color), IDSUMember()
+Field::Hex::Hex(std::vector<DVertex> vertices, Color color) : DPolygon(vertices), IDSUMember()
 {
+//	m_Color = color;
 }
 
 Field::Hex::Hex(const Hex& hex) : DPolygon(hex), IDSUMember(hex)
 {
+//	m_Color = hex.m_Color;
 }
 
+void Field::Hex::SetColor(Color color)
+{
+	DPolygon::SetColor(color);
+//	m_Color = color;
+}
+
+Color Field::Hex::GetColor()
+{
+	const std::vector<DVertex>& vertices = GetVertices();
+	if (vertices.size() > 0)
+	{
+		DVec4 color = vertices[0].GetColor();
+		return Color(color[0], color[1], color[2], color[3]);
+	}
+	return Color(0.0f, 0.0f, 0.0f, 1.0f);
+}
 
 void Field::Reset()
 {
@@ -66,15 +84,21 @@ void Field::Init()
 		m_Hexes.push_back(std::vector<Hex>());
 		for (unsigned int j = 0; j < FIELD_SIZE_Y; ++j)
 		{
-			std::vector<DVec4> vertices;
-			vertices.push_back(DVec4(x - b, y, 0.0f, 0.0f));
-			vertices.push_back(DVec4(x - a, y + a, 0.0f, 0.0f));
-			vertices.push_back(DVec4(x + a, y + a, 0.0f, 0.0f));
-			vertices.push_back(DVec4(x + b, y, 0.0f, 0.0f));
-			vertices.push_back(DVec4(x + a, y - a, 0.0f, 0.0f));
-			vertices.push_back(DVec4(x - a, y - a, 0.0f, 0.0f));
+			std::vector<DVertex> vertices(6);
+			vertices[0].SetPosition(DVec4(x - b, y, 0.0f, 1.0f));
+			vertices[1].SetPosition(DVec4(x - a, y + a, 0.0f, 1.0f));
+			vertices[2].SetPosition(DVec4(x + a, y + a, 0.0f, 1.0f));
+			vertices[3].SetPosition(DVec4(x + b, y, 0.0f, 1.0f));
+			vertices[4].SetPosition(DVec4(x + a, y - a, 0.0f, 1.0f));
+			vertices[5].SetPosition(DVec4(x - a, y - a, 0.0f, 1.0f));
 
-			m_Hexes[i].push_back(Hex(vertices, m_Colors[rand() % m_Colors.size()]));
+			Color color = m_Colors[rand() % m_Colors.size()];
+			for (int i = 0; i < 6; ++i)
+			{
+				vertices[i].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+			}
+
+			m_Hexes[i].push_back(Hex(vertices, color));
 
 			if (j > 0)
 			{
@@ -267,6 +291,7 @@ bool Field::Turn(unsigned int player1, unsigned int player2, Color newColor)
 			if (m_Hexes[m_StartingPositions[player1].first][m_StartingPositions[player1].second].FindSet() == m_Hexes[i][j].FindSet())
 			{
 				m_Hexes[i][j].SetColor(newColor);
+				m_Hexes[i][j].Init();
 			}
 		}
 	}

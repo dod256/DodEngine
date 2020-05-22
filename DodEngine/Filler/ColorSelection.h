@@ -1,18 +1,22 @@
 #pragma once
+#include "..\Core\precomp.h"
 #include "..\Core\IClickable.h"
-#include "..\Core\Render\PrimitiveFigure.h"
-#include "..\Core\Render\Vertex.h"
-#include "..\Core\Render\Color.h"
+#include "..\Core\Render\DPolygon.h"
+#include <functional>
 
-class Field;
 
-class ColorSelection : public IClickable, public PrimitiveFigure
+class ColorSelection : public IClickable, IDrawable
 {
 public:
-	ColorSelection(std::vector<Vertex> vertices, std::vector<unsigned int> indices, Color color, Field* field);
-	ColorSelection(const ColorSelection& button);
+	ColorSelection() {};
+	ColorSelection(const std::vector<DVertex>& vertices, std::function<void(Color color)>& onClickFunc, Color color);
 	void OnClick(float mouseXPos, float mouseYPos) const;
+	void Draw(const Shader& shader) const;
+	void Init();
+	void InitTexture(const char* fileName);
 private:
-	Field* m_Field;
+	DPolygon m_Polygon;
+	std::function<void(Color color)> m_OnClickFunc;
+	Color m_Color;
 };
 

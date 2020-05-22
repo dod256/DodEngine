@@ -6,59 +6,27 @@
 
 void DPolygon::Draw(const Shader& shader) const
 {
-	if (!m_NewWay)
+	if (IsWithTexture)
 	{
-		m_OpenGLArea.Draw(shader);
-		return;
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_Texture);
 	}
-	//If Texture
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_Texture);
 	glBindVertexArray(m_VertexArray);
 	glDrawElements(GL_TRIANGLES, (int)m_Indices.size(), GL_UNSIGNED_INT, 0);
 }
 
 DPolygon::DPolygon(const std::vector<DVertex>& vertices)
 {
-	m_NewWay = true;
 	m_Vertices = std::vector<DVertex>(vertices.begin(), vertices.end());
 }
 
-DPolygon::DPolygon(std::vector<DVec4> vertices, Color color)
+DPolygon::DPolygon(const DPolygon& polygon)
 {
-	m_Color = color;
-	m_VerticesOld = std::vector<DVec4>(vertices.begin(), vertices.end());
-}
-
-DPolygon::DPolygon(const DPolygon& anotherArea)
-{
-	m_Color = anotherArea.m_Color;
-	m_VerticesOld = std::vector<DVec4>(anotherArea.m_VerticesOld.begin(), anotherArea.m_VerticesOld.end());
-	m_Vertices = std::vector<DVertex>(anotherArea.m_Vertices.begin(), anotherArea.m_Vertices.end());
+	m_Vertices = std::vector<DVertex>(polygon.m_Vertices.begin(), polygon.m_Vertices.end());
 }
 
 void DPolygon::Init()
 {
-	if(!m_NewWay)
-	{
-		std::vector<DU32> indices;
-		for(DU32 i = 1; i < m_VerticesOld.size() - 1; ++i)
-		{
-			indices.push_back(0);
-			indices.push_back(i);
-			indices.push_back(i + 1);
-		}
-		std::vector<Vertex> v;
-		for(int i = 0; i < m_VerticesOld.size(); ++i)
-		{
-			std::pair<DFloat, DFloat> pair = Renderer::WorldToViewport(std::make_pair(m_VerticesOld[i][0], m_VerticesOld[i][1]));
-			v.push_back(Vertex(pair.first, pair.second));
-		}
-		m_OpenGLArea = PrimitiveFigure(v, indices, m_Color);
-		m_OpenGLArea.Init();
-		return;
-	}
-
 	for(DU32 i = 1; i < m_Vertices.size() - 1; ++i)
 	{
 		m_Indices.push_back(0);
@@ -80,13 +48,6 @@ void DPolygon::Init()
 		m_ViewportVertices.push_back(viewportVertex);
 	}
 	*/
-
-	m_Indices.push_back(0);
-	m_Indices.push_back(1);
-	m_Indices.push_back(3);
-	m_Indices.push_back(1);
-	m_Indices.push_back(2);
-	m_Indices.push_back(3);
 
 	for (const DVertex& vertex : m_Vertices)
 	{
@@ -115,12 +76,21 @@ void DPolygon::Init()
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 10 * sizeof(float), (void*)(4 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-
-	//if Texture
-
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 10 * sizeof(float), (void*)(8 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
+	//if Texture
+	//InitTexture("kosh.jpeg");
+	
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+
+void DPolygon::InitTexture(const char* fileName)
+{
+	IsWithTexture = true;
 	glGenTextures(1, &m_Texture);
 	glBindTexture(GL_TEXTURE_2D, m_Texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -131,11 +101,10 @@ void DPolygon::Init()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-
 	stbi_set_flip_vertically_on_load(true);
 
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load("kosh.jpeg", &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(fileName, &width, &height, &nrChannels, 0);
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -146,10 +115,6 @@ void DPolygon::Init()
 		std::cout << "Failed to load texture" << std::endl;
 	}
 	stbi_image_free(data);
-
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
 }
 
 DPolygon::~DPolygon()
@@ -159,8 +124,14 @@ DPolygon::~DPolygon()
 	glDeleteBuffers(1, &m_ElementBuffer);
 }
 
-void DPolygon::SetColor(Color newValue)
+void DPolygon::SetColor(Color color)
 {
-	m_Color = newValue;
-	m_OpenGLArea.SetColor(m_Color);
-};
+	for (DU32 i = 0; i < m_Vertices.size(); ++i)
+	{
+		m_Vertices[i].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+		m_ViewportVertices[10 * i + 4] = color.GetR();
+		m_ViewportVertices[10 * i + 5] = color.GetG();
+		m_ViewportVertices[10 * i + 6] = color.GetB();
+		m_ViewportVertices[10 * i + 7] = color.GetA();
+	}
+}

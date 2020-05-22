@@ -12,8 +12,12 @@ public:
 	class Hex : public DPolygon, public IDSUMember
 	{
 	public:
-		Hex(std::vector<DVec4> vertices, Color color = Color(0.0f, 0.0f, 0.0f, 1.0f));
+		Hex(std::vector<DVertex> vertices, Color color = Color(0.0f, 0.0f, 0.0f, 1.0f));
 		Hex(const Hex& hex);
+		Color GetColor();// { return m_Color; };
+		void SetColor(Color color) override;
+	//private:
+		//Color m_Color;
 	};
 
 	void Draw(const Shader& shader) const override;

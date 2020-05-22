@@ -115,21 +115,22 @@ bool MathHelper::Intersection(DPoint2 a, DPoint2 b, DPoint2 c, DPoint2 d, DPoint
 
 bool MathHelper::IsInPolygon(DPoint2 p1, const std::vector<DPoint2> polygon)
 {
+	DU32 size = polygon.size();
 	DPoint2 ray(INF, p1.y);
 	DU32 count = 0;
-	for (DU32 i = 0; i < polygon.size() - 1; ++i)
+	for (DU32 i = 0; i < polygon.size(); ++i)
 	{
 		DPoint2 left, right;
-		if (Intersection(p1, ray, polygon[i], polygon[i + 1], left, right))
+		if (Intersection(p1, ray, polygon[i], polygon[(i + 1) % size], left, right))
 		{
 			if (polygon[i] == left || polygon[i] == right)
 			{
-				if (polygon[i + 1].y >= p1.y)
+				if (polygon[(i + 1) % size].y >= p1.y)
 				{
 					continue;
 				}
 			}
-			if (polygon[i + 1] == left || polygon[i + 1] == right)
+			if (polygon[(i + 1) % size] == left || polygon[(i + 1) % size] == right)
 			{
 				if (polygon[i].y >= p1.y)
 				{
@@ -139,5 +140,6 @@ bool MathHelper::IsInPolygon(DPoint2 p1, const std::vector<DPoint2> polygon)
 			++count;
 		}
 	}
+
 	return count % 2;
 }

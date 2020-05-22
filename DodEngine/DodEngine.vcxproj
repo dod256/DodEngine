@@ -164,6 +164,7 @@
     <ClCompile Include="Core\Render\DVertex.cpp" />
     <ClCompile Include="Core\Math\DPoint.cpp" />
     <ClCompile Include="Core\Math\DLine.cpp" />
+    <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Filler\ButtonHelper.cpp" />
     <ClCompile Include="Core\CallbackManager.cpp" />
     <ClCompile Include="Core\Render\Color.cpp" />
@@ -171,7 +172,6 @@
     <ClCompile Include="Filler\Field.cpp" />
     <ClCompile Include="Filler\GameLoop.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="Core\Render\Hex.cpp" />
     <ClCompile Include="Core\IClickable.cpp" />
     <ClCompile Include="Core\Render\IDrawable.cpp" />
     <ClCompile Include="Core\IDSUMember.cpp" />
@@ -184,6 +184,8 @@
     <ClCompile Include="Core\Render\TextHelper.cpp" />
     <ClCompile Include="Core\Render\Vertex.cpp" />
     <ClCompile Include="Core\Math\MathHelper.cpp" />
+    <ClCompile Include="Core\Render\RenderManager.cpp" />
+    <ClCompile Include="Core\ResourceSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\External\stb_image.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="Core\Render\DVertex.h" />
     <ClInclude Include="Core\Math\DPoint.h" />
     <ClInclude Include="Core\Math\DLine.h" />
+    <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Filler\ButtonHelper.h" />
     <ClInclude Include="Core\CallbackManager.h" />
     <ClInclude Include="Core\Render\Color.h" />
@@ -201,7 +204,6 @@
     <ClInclude Include="Core\Constants.h" />
     <ClInclude Include="Filler\Field.h" />
     <ClInclude Include="Filler\GameLoop.h" />
-    <ClInclude Include="Core\Render\Hex.h" />
     <ClInclude Include="Core\IClickable.h" />
     <ClInclude Include="Core\Render\IDrawable.h" />
     <ClInclude Include="Core\IDSUMember.h" />
@@ -213,6 +215,8 @@
     <ClInclude Include="Core\Render\TextHelper.h" />
     <ClInclude Include="Core\Render\Vertex.h" />
     <ClInclude Include="Core\Math\MathHelper.h" />
+    <ClInclude Include="Core\Render\RenderManager.h" />
+    <ClInclude Include="Core\ResourceSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Default.fs" />
