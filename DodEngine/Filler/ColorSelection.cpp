@@ -26,17 +26,17 @@ void ColorSelection::OnClick(float mouseXPos, float mouseYPos) const
 	}
 }
 
-void ColorSelection::Draw(const Shader& shader) const
+void ColorSelection::Draw() const
 {
-	m_Polygon.Draw(shader);
+	m_Polygon.Draw();
 }
 
 void ColorSelection::InitTexture(const char* fileName)
 {
-	m_Polygon.InitTexture(fileName);
+	//m_Polygon.InitTexture(fileName);
 }
 
 void ColorSelection::Init()
 {
-	m_Polygon.Init();
+	//m_Polygon.Init();
 }

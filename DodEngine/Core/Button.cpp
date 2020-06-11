@@ -26,17 +26,17 @@ void Button::OnClick(float mouseXPos, float mouseYPos) const
 	}
 }
 
-void Button::Draw(const Shader& shader) const
+void Button::Draw() const
 {
-	m_Polygon.Draw(shader);
+	m_Polygon.Draw();
 }
 
 void Button::InitTexture(const char* fileName)
 {
-	m_Polygon.InitTexture(fileName);
+	//m_Polygon.InitTexture(fileName);
 }
 
 void Button::Init()
 {
-	m_Polygon.Init();
+	//m_Polygon.Init();
 }

@@ -5,6 +5,6 @@
  class IDrawable
 {
 public:
-	virtual void Draw(const Shader& shader) const = 0;
+	virtual void Draw() const = 0;
 };
 

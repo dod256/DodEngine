@@ -14,7 +14,5 @@ public:
 	//void Register(DU32 ID, IDrawable* object);
 	//void Unregister(DU32 ID);
 	//void Draw(DU32 ID);
-public:
-	static GLFWwindow* m_Window;
 };
 

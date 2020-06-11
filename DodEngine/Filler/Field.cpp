@@ -1,21 +1,11 @@
 #include "Field.h"
 #include <cassert>
 #include <iostream>
-
-Field::Hex::Hex(std::vector<DVertex> vertices, Color color) : DPolygon(vertices), IDSUMember()
-{
-//	m_Color = color;
-}
-
-Field::Hex::Hex(const Hex& hex) : DPolygon(hex), IDSUMember(hex)
-{
-//	m_Color = hex.m_Color;
-}
+#include "..\Core\Render\RenderManager.h"
 
 void Field::Hex::SetColor(Color color)
 {
 	DPolygon::SetColor(color);
-//	m_Color = color;
 }
 
 Color Field::Hex::GetColor()
@@ -29,15 +19,7 @@ Color Field::Hex::GetColor()
 	return Color(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-void Field::Reset()
-{
-	m_Hexes.clear();
-	m_StartingPositions.clear();
-	m_Colors.clear();
-	Init();
-}
-
-unsigned int Field::PlayerScore(unsigned int player)
+unsigned int Field::PlayerScore(unsigned int player) const
 {
 	unsigned score = 0;
 	for (unsigned int i = 0; i < m_Hexes.size(); ++i)
@@ -63,12 +45,45 @@ Field::~Field()
 
 void Field::Init()
 {
+	m_Players.push_back(Player("Player1", false));
+	m_Players.push_back(Player("AI"));
+	m_IsGameEnded = false;
+	m_Hexes.clear();
+	m_StartingPositions.clear();
+	m_Colors.clear();
+	for (ColorSelection& colorSelection : m_ColorSelections)
+	{
+		colorSelection.SetIsClickDisabled(false);
+	}
 	m_Colors.push_back(Color(0.0f, 0.0f, 1.0f, 1.0f));
 	m_Colors.push_back(Color(0.0f, 1.0f, 0.0f, 1.0f));
 	m_Colors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
 	m_Colors.push_back(Color(0.0f, 1.0f, 1.0f, 1.0f));
 	m_Colors.push_back(Color(1.0f, 1.0f, 0.0f, 1.0f));
 	m_Colors.push_back(Color(1.0f, 0.0f, 1.0f, 1.0f));
+
+	for (DU32 i = 0; i < m_Colors.size(); ++i)
+	{
+		AddColorSelection(140.0f + i * 140.0f, 30.0f, 40.0f, 10.0f, m_Colors[i]);
+	}
+
+	std::vector<DVertex> resetVertices(4);
+	resetVertices[0].SetPosition(DVec4(120.0f, DEFAULT_WINDOWS_HEIGHT - 40.0f, 0.0f, 1.0f));
+	resetVertices[1].SetPosition(DVec4(120.0f, DEFAULT_WINDOWS_HEIGHT - 10.0f, 0.0f, 1.0f));
+	resetVertices[2].SetPosition(DVec4(150.0f, DEFAULT_WINDOWS_HEIGHT - 10.0f, 0.0f, 1.0f));
+	resetVertices[3].SetPosition(DVec4(150.0f, DEFAULT_WINDOWS_HEIGHT - 40.0f, 0.0f, 1.0f));
+	resetVertices[0].SetColor(DVec4(1.0f, 0.0f, 0.0f, 1.0f));
+	resetVertices[1].SetColor(DVec4(0.0f, 1.0f, 0.0f, 1.0f));
+	resetVertices[2].SetColor(DVec4(0.0f, 0.0f, 1.0f, 1.0f));
+	resetVertices[3].SetColor(DVec4(1.0f, 1.0f, 0.0f, 1.0f));
+	resetVertices[0].SetTexturePosition(DVec2(1.0f, 1.0f));
+	resetVertices[1].SetTexturePosition(DVec2(1.0f, 0.0f));
+	resetVertices[2].SetTexturePosition(DVec2(0.0f, 0.0f));
+	resetVertices[3].SetTexturePosition(DVec2(0.0f, 1.0f));
+	std::function<void()> fieldReset = std::bind(&Field::Init, this);
+	//std::function<void()> fieldReset = std::bind(&GameLoop::Reset, this);
+	m_Reset = Button(resetVertices, fieldReset);
+
 
 	DFloat a = 8.0f;
 	DFloat b = 12.0f;
@@ -141,7 +156,7 @@ void Field::Init()
 	{
 		for(Hex& hex : column)
 		{
-			hex.Init();
+			//hex.Init();
 		}
 	}
 
@@ -151,18 +166,69 @@ void Field::Init()
 
 Field::Field()
 {
+	m_Players.reserve(2);
 	m_StartingPositions.reserve(2);
 	m_Colors.reserve(6);
+	m_ColorSelections.reserve(6);
 }
 
-void Field::Draw(const Shader& shader) const
+void Field::AddColorSelection(float x, float y, float a, float b, Color color)
 {
+	std::vector<DVertex> vertices(4);
+	vertices[0].SetPosition(DVec4(x - a, y - b, 0.0f, 1.0f));
+	vertices[1].SetPosition(DVec4(x + a, y - b, 0.0f, 1.0f));
+	vertices[2].SetPosition(DVec4(x + a, y + b, 0.0f, 1.0f));
+	vertices[3].SetPosition(DVec4(x - a, y + b, 0.0f, 1.0f));
+	vertices[0].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+	vertices[1].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+	vertices[2].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+	vertices[3].SetColor(DVec4(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
+
+	std::function<void(Color color)> fieldPlayerTurn = std::bind(&Field::PlayerTurn, this, color);
+
+	m_ColorSelections.push_back(ColorSelection(vertices, fieldPlayerTurn, color));
+	m_ColorSelections[m_ColorSelections.size() - 1].Init();
+}
+
+void Field::Update()
+{
+
+	if (!m_IsGameEnded)
+	{
+		for (const ColorSelection& colorSelection : m_ColorSelections)
+		{
+			colorSelection.Draw();
+		}
+	}
+
+	m_Reset.Draw();
+
 	for (const std::vector<Hex>& column : m_Hexes)
 	{
 		for (const Hex& hex : column)
 		{
-			hex.Draw(shader);
+			hex.Draw();
 		}
+	}
+
+	for (const Player& player : m_Players)
+	{
+		if (PlayerScore(player.GetID()) > 600)
+		{
+			std::string s = player.GetName() + " has won!";
+			DRenderManager.RenderText(s, 600.0f, 560.0f, 0.4f, DVec4(1.0, 1.0f, 1.0f, 1.0f));
+			DisableColorSelection();
+			break;
+		}
+	}
+
+
+	float y = 580.0f;
+	for (const Player& player : m_Players)
+	{
+		std::string s = player.GetName() + ": " + std::to_string(PlayerScore(player.GetID()));
+		DRenderManager.RenderText(s, 20.0f, y, 0.3f, DVec4(1.0, 1.0f, 1.0f, 1.0f));
+		y -= 20.0f;
 	}
 }
 
@@ -291,9 +357,16 @@ bool Field::Turn(unsigned int player1, unsigned int player2, Color newColor)
 			if (m_Hexes[m_StartingPositions[player1].first][m_StartingPositions[player1].second].FindSet() == m_Hexes[i][j].FindSet())
 			{
 				m_Hexes[i][j].SetColor(newColor);
-				m_Hexes[i][j].Init();
 			}
 		}
 	}
 	return true;
+}
+
+void Field::DisableColorSelection()
+{
+	for (ColorSelection& colorSelection : m_ColorSelections)
+	{
+		colorSelection.SetIsClickDisabled(true);
+	}
 }

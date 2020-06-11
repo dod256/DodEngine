@@ -11,7 +11,7 @@ public:
 	ColorSelection() {};
 	ColorSelection(const std::vector<DVertex>& vertices, std::function<void(Color color)>& onClickFunc, Color color);
 	void OnClick(float mouseXPos, float mouseYPos) const;
-	void Draw(const Shader& shader) const;
+	void Draw() const override;
 	void Init();
 	void InitTexture(const char* fileName);
 private:

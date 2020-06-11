@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Filler\GameLoop.h"
+#include "Core\GameLoop.h"
 
 int main()
 {

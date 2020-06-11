@@ -11,7 +11,7 @@ public:
 	Button() {};
 	Button(const std::vector<DVertex>& vertices, std::function<void()>& onClickFunc);
 	void OnClick(float mouseXPos, float mouseYPos) const;
-	void Draw(const Shader& shader) const;
+	void Draw() const override;
 	void Init();
 	void InitTexture(const char* fileName);
 private:

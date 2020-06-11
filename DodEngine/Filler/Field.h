@@ -4,34 +4,41 @@
 #include "..\Core\Render\Color.h"
 #include "..\Core\Render\DPolygon.h"
 #include "..\Core\IDSUMember.h"
+#include "..\Core\Button.h"
+#include "ColorSelection.h"
+#include "..\Core\Player.h"
 
-class Field : public IDrawable
+class Field
 {
 public:
 
 	class Hex : public DPolygon, public IDSUMember
 	{
 	public:
-		Hex(std::vector<DVertex> vertices, Color color = Color(0.0f, 0.0f, 0.0f, 1.0f));
-		Hex(const Hex& hex);
-		Color GetColor();// { return m_Color; };
+		Hex(std::vector<DVertex> vertices, Color color = Color(0.0f, 0.0f, 0.0f, 1.0f)) : DPolygon(vertices), IDSUMember() {};
+		Hex(const Hex& hex) : DPolygon(hex), IDSUMember(hex) {};
+		Color GetColor();
 		void SetColor(Color color) override;
-	//private:
-		//Color m_Color;
 	};
 
-	void Draw(const Shader& shader) const override;
-	void Reset();
+	void Update();
 	void PlayerTurn(Color newColor);
-	unsigned int PlayerScore(unsigned int player);
+	unsigned int PlayerScore(unsigned int player) const;
 	void Init();
 	Field();
 	~Field();
 	const std::vector<Color>& GetColors() const { return m_Colors; };
+	void DisableColorSelection();
 private:
+	void AddColorSelection(float x, float y, float a, float b, Color color);
 	bool Turn(unsigned int player1, unsigned int player2, Color newColor);
 	std::vector<std::vector<Hex> > m_Hexes;
 	std::vector<std::pair<unsigned int, unsigned int> > m_StartingPositions;
 	std::vector<Color> m_Colors;
+
+	std::vector<ColorSelection> m_ColorSelections;
+	Button m_Reset;
+	bool m_IsGameEnded = true;
+	std::vector<Player> m_Players;
 };
 
