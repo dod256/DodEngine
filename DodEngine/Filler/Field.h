@@ -7,8 +7,10 @@
 #include "..\Core\Button.h"
 #include "ColorSelection.h"
 #include "..\Core\Player.h"
+#include "..\Core\Scene.h"
+#include "..\Core\SceneManager.h"
 
-class Field
+class Field : public Scene
 {
 public:
 
@@ -21,7 +23,7 @@ public:
 		void SetColor(Color color) override;
 	};
 
-	void Update();
+	void Update() override;
 	void PlayerTurn(Color newColor);
 	unsigned int PlayerScore(unsigned int player) const;
 	void Init();

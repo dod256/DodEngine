@@ -45,16 +45,18 @@ Field::~Field()
 
 void Field::Init()
 {
-	m_Players.push_back(Player("Player1", false));
-	m_Players.push_back(Player("AI"));
-	m_IsGameEnded = false;
 	m_Hexes.clear();
 	m_StartingPositions.clear();
 	m_Colors.clear();
-	for (ColorSelection& colorSelection : m_ColorSelections)
-	{
-		colorSelection.SetIsClickDisabled(false);
-	}
+	m_ColorSelections.clear();
+	m_Players.clear();
+
+	Player::ResetNumberOfPlayers();
+	m_Players.push_back(Player("Player1", false));
+	m_Players.push_back(Player("AI"));
+	m_StartingPositions.push_back(std::make_pair(0, 0));
+	m_StartingPositions.push_back(std::make_pair(FIELD_SIZE_X - 1, FIELD_SIZE_Y - 1));
+	m_IsGameEnded = false;
 	m_Colors.push_back(Color(0.0f, 0.0f, 1.0f, 1.0f));
 	m_Colors.push_back(Color(0.0f, 1.0f, 0.0f, 1.0f));
 	m_Colors.push_back(Color(1.0f, 0.0f, 0.0f, 1.0f));
@@ -151,20 +153,9 @@ void Field::Init()
 		}
 		x += b + a;
 	}
-
-	for(std::vector<Hex>& column : m_Hexes)
-	{
-		for(Hex& hex : column)
-		{
-			//hex.Init();
-		}
-	}
-
-	m_StartingPositions.push_back(std::make_pair(0, 0));
-	m_StartingPositions.push_back(std::make_pair(FIELD_SIZE_X - 1, FIELD_SIZE_Y - 1));
 }
 
-Field::Field()
+Field::Field() : Scene(SceneID::SceneID_GameField)
 {
 	m_Players.reserve(2);
 	m_StartingPositions.reserve(2);

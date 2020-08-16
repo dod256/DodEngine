@@ -29,6 +29,7 @@ public:
 	static RenderManager& GetRenderManager() { return m_RenderManager; };
 	static void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 	void RenderText(std::string text, DFloat x, DFloat y, DFloat scale, DVec4 color);
+	std::vector<DVertex> TextPolygon(std::string text, DFloat x, DFloat y, DFloat scale);
 	RenderManager() {};
 	~RenderManager() {};
 	bool StartUp();

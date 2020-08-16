@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include "Shader.h"
 
  class IDrawable
 {

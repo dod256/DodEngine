@@ -1,19 +1,7 @@
 #include "GameLoop.h"
-#include <vector>
 #include <ctime> 
-#include "..\Core\CallbackManager.h"
-#include <functional>
-
-void GameLoop::ProcessInput()
-{
-	if (GLFWwindow* window = DRenderManager.GetWindow())
-	{
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		{
-			glfwSetWindowShouldClose(window, true);
-		}
-	}
-}
+#include "..\Core\InputManager.h"
+#include "..\Core\SceneManager.h"
 
 void GameLoop::Terminate()
 {
@@ -22,15 +10,21 @@ void GameLoop::Terminate()
 
 void GameLoop::Update()
 {
-	ProcessInput();
+	m_IsExit = glfwWindowShouldClose(DRenderManager.GetWindow());
+	DInputManager.ProcessInput();
 	DRenderManager.PreUpdate();
-	m_Field.Update();
-	DRenderManager.PostUpdate();
-}
 
-bool GameLoop::IsStopped()
-{
-	return glfwWindowShouldClose(DRenderManager.GetWindow());
+	if (Scene* scene = DSceneManager.GetCurrentScene())
+	{
+		m_IsExit = m_IsExit || (scene->GetID() == SceneID::SceneID_Exit);
+		if (m_IsExit)
+		{
+			return;
+		}
+		scene->Update();
+	}
+	
+	DRenderManager.PostUpdate();
 }
 
 bool GameLoop::Init()
@@ -41,5 +35,12 @@ bool GameLoop::Init()
 		return 0;
 	}
 	m_Field.Init();
+	DSceneManager.AddScene(&m_Field);
+	m_MainMenu = Menu(SceneID::SceneID_MainMenu);
+	DSceneManager.AddScene(&m_MainMenu);
+	m_Exit = Menu(SceneID::SceneID_Exit);
+	DSceneManager.AddScene(&m_Exit);
+	DSceneManager.SetCurrentScene(SceneID::SceneID_MainMenu);
+	m_MainMenu.Init();
 	return true;
 }

@@ -166,7 +166,7 @@
     <ClCompile Include="Core\Math\DLine.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Filler\ButtonHelper.cpp" />
-    <ClCompile Include="Core\CallbackManager.cpp" />
+    <ClCompile Include="Core\InputManager.cpp" />
     <ClCompile Include="Core\Render\Color.cpp" />
     <ClCompile Include="Filler\ColorSelection.cpp" />
     <ClCompile Include="Filler\Field.cpp" />
@@ -184,6 +184,10 @@
     <ClCompile Include="Core\Render\RenderManager.cpp" />
     <ClCompile Include="Core\ResourceSystem.cpp" />
     <ClCompile Include="Core\Render\Renderable.cpp" />
+    <ClCompile Include="Core\Menu.cpp" />
+    <ClCompile Include="Core\Scene.cpp" />
+    <ClCompile Include="Core\Render\Text.cpp" />
+    <ClCompile Include="Core\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\External\stb_image.h" />
@@ -196,7 +200,7 @@
     <ClInclude Include="Core\Math\DLine.h" />
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Filler\ButtonHelper.h" />
-    <ClInclude Include="Core\CallbackManager.h" />
+    <ClInclude Include="Core\InputManager.h" />
     <ClInclude Include="Core\Render\Color.h" />
     <ClInclude Include="Filler\ColorSelection.h" />
     <ClInclude Include="Core\Constants.h" />
@@ -213,6 +217,10 @@
     <ClInclude Include="Core\Render\RenderManager.h" />
     <ClInclude Include="Core\ResourceSystem.h" />
     <ClInclude Include="Core\Render\Renderable.h" />
+    <ClInclude Include="Core\Menu.h" />
+    <ClInclude Include="Core\Scene.h" />
+    <ClInclude Include="Core\Render\Text.h" />
+    <ClInclude Include="Core\SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Camera.fs" />

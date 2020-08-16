@@ -10,7 +10,7 @@ int main()
 	{
 		return 0;
 	}
-	while (!gameLoop.IsStopped())
+	while (!gameLoop.IsExit())
 	{
 		gameLoop.Update();
 	}

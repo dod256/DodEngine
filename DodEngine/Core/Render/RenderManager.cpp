@@ -1,7 +1,8 @@
 #include "RenderManager.h"
 #include "..\Constants.h"
 #include "..\ResourceSystem.h"
-#include "..\CallbackManager.h"
+#include "..\InputManager.h"
+#include <algorithm>
 
 RenderManager RenderManager::m_RenderManager;
 
@@ -39,7 +40,7 @@ bool RenderManager::StartUp()
 	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
 	std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 
-	glfwSetMouseButtonCallback(m_Window, CallbackManager::OnClick);
+	glfwSetMouseButtonCallback(m_Window, InputManager::OnClick);
 	m_CameraShader = Shader("Camera.vs", "Camera.fs");
 
 //-------------------------------------------------------------------------Text Init-------------------------------------------------------------------------------------------
@@ -158,6 +159,30 @@ void RenderManager::Draw(DU32 meshID)
 		m_CameraShader.SetVec4("cameraPosition", DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f, DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f);
 		renderable->Draw();
 	}
+}
+
+std::vector<DVertex> RenderManager::TextPolygon(std::string text, DFloat x, DFloat y, DFloat scale)
+{
+	DFloat x1 = x;
+	DFloat y1 = y;
+	DFloat x2 = 0.0f;
+	DFloat y2 = y;
+	std::string::const_iterator c;
+	for (c = text.begin(); c != text.end(); c++)
+	{
+		Character ch = Characters[*c];
+		GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+		GLfloat h = ch.Size.y * scale;
+		y2 = std::max(y2, ypos + h);
+		x += (ch.Advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+	}
+	x2 = x;
+	std::vector<DVertex> res(4);
+	res[0].SetPosition(DVec4(x1, y1, 0.0f, 1.0f));
+	res[1].SetPosition(DVec4(x1, y2, 0.0f, 1.0f));
+	res[2].SetPosition(DVec4(x2, y2, 0.0f, 1.0f));
+	res[3].SetPosition(DVec4(x2, y1, 0.0f, 1.0f));
+	return res;
 }
 
 void RenderManager::RenderText(std::string text, DFloat x, DFloat y, DFloat scale, DVec4 color)

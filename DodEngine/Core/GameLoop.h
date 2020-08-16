@@ -10,6 +10,7 @@
 
 
 #include "..\Filler\Field.h"
+#include "Menu.h"
 
 class ResetGameButton;
 
@@ -18,11 +19,13 @@ class GameLoop
 public:
 	bool Init();
 	void Update();
-	bool IsStopped();
+	bool IsExit() { return m_IsExit; };
 	void Terminate();
 private:
-	void ProcessInput();
-
 	Field m_Field;
+	Menu m_MainMenu;
+	Menu m_Exit;
+	bool m_IsInMenu = true;
+	bool m_IsExit = false;
 };
 

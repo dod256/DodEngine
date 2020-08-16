@@ -9,6 +9,7 @@ public:
 	std::string GetName() const { return m_Name; };
 	bool GetIsAI() const { return m_IsAI; };
 	static unsigned int GetNumberOfPlayers() { return NUMBER_OF_PLAYERS; };
+	static void ResetNumberOfPlayers() { NUMBER_OF_PLAYERS = 0; };
 	unsigned int GetID() const { return ID; };
 private:
 	static unsigned int NUMBER_OF_PLAYERS;
