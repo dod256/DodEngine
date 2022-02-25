@@ -1,7 +1,7 @@
 #pragma once
-#include "Constants.h"
 #include <map>
 #include "Render\Renderer.h"
+#include "precomp.h"
 
 #define DInputManager InputManager::GetInputManager()
 

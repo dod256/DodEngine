@@ -42,6 +42,7 @@ public:
 private:
 	static RenderManager m_RenderManager;
 	Shader m_CameraShader;
+	Shader m_TextureShader;
 	Shader m_TextShader;
 	GLFWwindow* m_Window = nullptr;
 	std::map<GLchar, Character> Characters;

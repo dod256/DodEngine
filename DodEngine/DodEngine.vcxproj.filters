@@ -45,9 +45,6 @@
     <ClCompile Include="Filler\ColorSelection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Filler\Field.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core\IDSUMember.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -93,9 +90,6 @@
     <ClCompile Include="Core\Render\Renderable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\GameLoop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -109,6 +103,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AE\AE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AE\Field.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\GameInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Filler\GameLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Filler\Filler_Field.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -129,9 +138,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Filler\ColorSelection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Filler\Field.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\IDSUMember.h">
@@ -188,9 +194,6 @@
     <ClInclude Include="Core\Render\Renderable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\GameLoop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core\InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -204,6 +207,30 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\SceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AE\AE.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AE\Field.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\GameInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Filler\Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Filler\GameLoop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Filler\Filler_Field.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -244,10 +271,19 @@
     <None Include="Texture.fs" />
     <None Include="Camera.vs" />
     <None Include="Camera.fs" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf">
       <Filter>Resource Files\Fonts</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="restart.JPG">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="kosh.jpeg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

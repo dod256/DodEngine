@@ -7,7 +7,7 @@
 
 //ToDo move to ResourceSystem
 #define STB_IMAGE_IMPLEMENTATION
-#include "..\External\stb_image.h"
+#include "..\..\stb_image.h"
 
 Renderable::Renderable()
 {
@@ -24,12 +24,21 @@ Renderable::~Renderable()
 Renderable::Renderable(const Renderable& object)
 {
 	m_Vertices = std::vector<DVertex>(object.m_Vertices);
+	m_xFileName = object.m_xFileName;
 	Init();
 }
 
-Renderable::Renderable(const std::vector<DVertex> vertices)
+Renderable::Renderable(const std::vector<DVertex> vertices, const char* fileName)
 {
 	m_Vertices = std::vector<DVertex>(vertices);
+	if (fileName)
+	{
+        m_xFileName = std::string(fileName);
+	}
+	else
+	{
+		m_xFileName.clear();
+	}
 	Init();
 }
 
@@ -42,6 +51,7 @@ Renderable& Renderable::operator = (const Renderable& object)
 		glDeleteBuffers(1, &m_ElementBuffer);
 	}
 	m_Vertices = std::vector<DVertex>(object.m_Vertices);
+	m_xFileName = object.m_xFileName;
 	Init();
 	return *this;
 }
@@ -93,13 +103,19 @@ void Renderable::Init()
 	glEnableVertexAttribArray(2);
 	
 	//Init Texture
+	InitTexture();
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
-void Renderable::InitTexture(const char* fileName)
+void Renderable::InitTexture()
 {
+	if (m_xFileName.empty())
+	{
+		return;
+	}
+
 	m_IsWithTexture = true;
 	glGenTextures(1, &m_Texture);
 	glBindTexture(GL_TEXTURE_2D, m_Texture);
@@ -114,7 +130,7 @@ void Renderable::InitTexture(const char* fileName)
 	stbi_set_flip_vertically_on_load(true);
 
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load(fileName, &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(m_xFileName.c_str(), &width, &height, &nrChannels, 0);
 	if (data)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);

@@ -1,10 +1,13 @@
 #include "RenderManager.h"
-#include "..\Constants.h"
 #include "..\ResourceSystem.h"
 #include "..\InputManager.h"
 #include <algorithm>
 
 RenderManager RenderManager::m_RenderManager;
+
+//ToDo: make it generic
+const DFloat DEFAULT_WINDOWS_HEIGHT = 1000;
+const DFloat DEFAULT_WINDOWS_WIDTH = 1200;
 
 void RenderManager::FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
@@ -18,7 +21,7 @@ bool RenderManager::StartUp()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	m_Window = glfwCreateWindow(DEFAULT_WINDOWS_WIDTH, DEFAULT_WINDOWS_HEIGHT, "Filler", NULL, NULL);
+	m_Window = glfwCreateWindow(DEFAULT_WINDOWS_WIDTH, DEFAULT_WINDOWS_HEIGHT, "AE", NULL, NULL);
 	if (m_Window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -42,6 +45,7 @@ bool RenderManager::StartUp()
 
 	glfwSetMouseButtonCallback(m_Window, InputManager::OnClick);
 	m_CameraShader = Shader("Camera.vs", "Camera.fs");
+	m_TextureShader = Shader("Texture.vs", "Texture.fs");
 
 //-------------------------------------------------------------------------Text Init-------------------------------------------------------------------------------------------
 	// Set OpenGL options
@@ -146,8 +150,16 @@ void RenderManager::ShutDown()
 
 void RenderManager::Draw(const Renderable& renderable)
 {
-	m_CameraShader.Use();
-	m_CameraShader.SetVec4("cameraPosition", DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f, DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f);
+	if (renderable.GetIsWithTexture())
+	{
+		m_TextureShader.Use();
+		m_TextureShader.SetVec4("cameraPosition", DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f, DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f);
+	}
+	else
+	{
+		m_CameraShader.Use();
+		m_CameraShader.SetVec4("cameraPosition", DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f, DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f);
+	}
 	renderable.Draw();
 }
 
@@ -155,8 +167,16 @@ void RenderManager::Draw(DU32 meshID)
 {
 	if (Renderable* renderable = DResourceSystem.GetMesh(meshID))
 	{
-		m_CameraShader.Use();
-		m_CameraShader.SetVec4("cameraPosition", DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f, DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f);
+		if (renderable->GetIsWithTexture())
+		{
+			m_TextureShader.Use();
+			m_TextureShader.SetVec4("cameraPosition", DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f, DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f);
+		}
+		else
+		{
+			m_CameraShader.Use();
+			m_CameraShader.SetVec4("cameraPosition", DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f, DEFAULT_WINDOWS_WIDTH / 2.0f, DEFAULT_WINDOWS_HEIGHT / 2.0f);
+		}
 		renderable->Draw();
 	}
 }

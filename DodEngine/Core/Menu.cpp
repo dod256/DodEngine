@@ -1,6 +1,10 @@
 #include "Menu.h"
 #include "precomp.h"
 
+
+//ToDo: get rid of that
+#include "../Filler/Constants.h"
+
 Menu::~Menu()
 {
 	for (IDrawable* item : m_Items)

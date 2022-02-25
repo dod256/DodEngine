@@ -28,26 +28,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -78,12 +78,12 @@
     <LibraryPath>E:\DodEngine\External\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>E:\DodEngine\External\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\DodEngine\External\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Util\ThirdPartyLibraries\OpenGL\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Util\ThirdPartyLibraries\OpenGL\Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>E:\DodEngine\External\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\DodEngine\External\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Util\ThirdPartyLibraries\OpenGL\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Util\ThirdPartyLibraries\OpenGL\Library;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -112,7 +112,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>freetype.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
     </Link>
@@ -152,12 +152,15 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>freetype.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AE\AE.cpp" />
+    <ClCompile Include="AE\Field.cpp" />
+    <ClCompile Include="Core\GameInstance.cpp" />
     <ClCompile Include="Core\Render\DPolygon.cpp" />
     <ClCompile Include="Core\Math\DVector.cpp" />
     <ClCompile Include="Core\Button.cpp" />
@@ -169,8 +172,8 @@
     <ClCompile Include="Core\InputManager.cpp" />
     <ClCompile Include="Core\Render\Color.cpp" />
     <ClCompile Include="Filler\ColorSelection.cpp" />
-    <ClCompile Include="Filler\Field.cpp" />
-    <ClCompile Include="Core\GameLoop.cpp" />
+    <ClCompile Include="Filler\Filler_Field.cpp" />
+    <ClCompile Include="Filler\GameLoop.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Core\IClickable.cpp" />
     <ClCompile Include="Core\Render\IDrawable.cpp" />
@@ -190,7 +193,10 @@
     <ClCompile Include="Core\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AE\AE.h" />
+    <ClInclude Include="AE\Field.h" />
     <ClInclude Include="Core\External\stb_image.h" />
+    <ClInclude Include="Core\GameInstance.h" />
     <ClInclude Include="Core\precomp.h" />
     <ClInclude Include="Core\Render\DPolygon.h" />
     <ClInclude Include="Core\Math\DVector.h" />
@@ -204,8 +210,7 @@
     <ClInclude Include="Core\Render\Color.h" />
     <ClInclude Include="Filler\ColorSelection.h" />
     <ClInclude Include="Core\Constants.h" />
-    <ClInclude Include="Filler\Field.h" />
-    <ClInclude Include="Core\GameLoop.h" />
+    <ClInclude Include="Filler\Constants.h" />
     <ClInclude Include="Core\IClickable.h" />
     <ClInclude Include="Core\Render\IDrawable.h" />
     <ClInclude Include="Core\IDSUMember.h" />
@@ -221,6 +226,10 @@
     <ClInclude Include="Core\Scene.h" />
     <ClInclude Include="Core\Render\Text.h" />
     <ClInclude Include="Core\SceneManager.h" />
+    <ClInclude Include="Filler\Filler_Field.h" />
+    <ClInclude Include="Filler\GameLoop.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Camera.fs" />
@@ -229,6 +238,7 @@
     <None Include="Default.vs" />
     <None Include="hex.fs" />
     <None Include="hex.vs" />
+    <None Include="README.md" />
     <None Include="TextShader.fs" />
     <None Include="TextShader.vs" />
     <None Include="Texture.fs" />
@@ -242,6 +252,10 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="kosh.jpeg" />
+    <Image Include="restart.JPG" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
