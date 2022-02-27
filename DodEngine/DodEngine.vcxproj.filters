@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -37,12 +34,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\IClickable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Filler\ButtonHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Filler\ColorSelection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\IDSUMember.cpp">
@@ -105,19 +96,7 @@
     <ClCompile Include="Core\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AE\AE.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AE\Field.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core\GameInstance.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Filler\GameLoop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Filler\Filler_Field.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -132,12 +111,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\IClickable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Filler\ButtonHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Filler\ColorSelection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\IDSUMember.h">
@@ -209,28 +182,13 @@
     <ClInclude Include="Core\SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AE\AE.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AE\Field.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core\GameInstance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Filler\Constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Filler\GameLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Filler\Filler_Field.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

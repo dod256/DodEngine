@@ -2,8 +2,8 @@
 #include "precomp.h"
 
 
-//ToDo: get rid of that
-#include "../Filler/Constants.h"
+#define DEFAULT_WINDOWS_WIDTH (1000)
+#define DEFAULT_WINDOWS_HEIGHT (600)
 
 Menu::~Menu()
 {

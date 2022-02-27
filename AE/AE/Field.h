@@ -1,6 +1,6 @@
 #pragma once
-#include "..\Core\Render\IDrawable.h"
-#include "..\Core\Render\DPolygon.h"
+#include "Core\Render\IDrawable.h"
+#include "Core\Render\DPolygon.h"
 
 class Field
 {

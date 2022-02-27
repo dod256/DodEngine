@@ -52,6 +52,8 @@ bool RenderManager::StartUp()
 	//glEnable(GL_CULL_FACE);
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//ToDo better paths?
 	m_TextShader = Shader("TextShader.vs", "TextShader.fs");
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(DEFAULT_WINDOWS_WIDTH), 0.0f, static_cast<GLfloat>(DEFAULT_WINDOWS_HEIGHT));
 	m_TextShader.Use();

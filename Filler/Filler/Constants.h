@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/precomp.h"
+#include "Core/precomp.h"
 
 #define DEFAULT_WINDOWS_WIDTH (1000)
 #define DEFAULT_WINDOWS_HEIGHT (600)

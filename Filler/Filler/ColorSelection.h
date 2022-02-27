@@ -1,7 +1,7 @@
 #pragma once
-#include "..\Core\precomp.h"
-#include "..\Core\IClickable.h"
-#include "..\Core\Render\DPolygon.h"
+#include "Core\precomp.h"
+#include "Core\IClickable.h"
+#include "Core\Render\DPolygon.h"
 #include <functional>
 
 

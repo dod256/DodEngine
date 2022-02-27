@@ -1,13 +1,13 @@
 #pragma once
-#include "..\Core\Render\IDrawable.h"
-#include "..\Core\Render\Color.h"
-#include "..\Core\Render\DPolygon.h"
-#include "..\Core\IDSUMember.h"
-#include "..\Core\Button.h"
+#include "Core\Render\IDrawable.h"
+#include "Core\Render\Color.h"
+#include "Core\Render\DPolygon.h"
+#include "Core\IDSUMember.h"
+#include "Core\Button.h"
 #include "ColorSelection.h"
-#include "..\Core\Player.h"
-#include "..\Core\Scene.h"
-#include "..\Core\SceneManager.h"
+#include "Core\Player.h"
+#include "Core\Scene.h"
+#include "Core\SceneManager.h"
 
 class Filler_Field : public Scene
 {

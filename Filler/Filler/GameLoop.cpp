@@ -1,7 +1,7 @@
 #include "GameLoop.h"
 #include <ctime> 
-#include "..\Core\InputManager.h"
-#include "..\Core\SceneManager.h"
+#include "Core\InputManager.h"
+#include "Core\SceneManager.h"
 
 void GameLoop::Terminate()
 {

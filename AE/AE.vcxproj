@@ -20,8 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{7C626ECC-F723-41DD-AE06-27498489DDF2}</ProjectGuid>
-    <RootNamespace>DodEngine</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{cffdecbe-7784-4600-9752-4bc4780066b4}</ProjectGuid>
+    <RootNamespace>AE</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -29,27 +30,27 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -70,152 +71,94 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>E:\DodEngine\External\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\DodEngine\External\lib\;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>E:\DodEngine\External\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\DodEngine\External\lib\;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Util\ThirdPartyLibraries\OpenGL\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Util\ThirdPartyLibraries\OpenGL\Library;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Util\ThirdPartyLibraries\OpenGL\Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>C:\Util\ThirdPartyLibraries\OpenGL\Library;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Util\ThirdPartyLibraries\OpenGL\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Util\ThirdPartyLibraries\OpenGL\Library;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Util\ThirdPartyLibraries\OpenGL\Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>C:\Util\ThirdPartyLibraries\OpenGL\Library;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>freetype.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>freetype.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)DodEngine</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DodEngine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freetype.lib;glfw3.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Core\GameInstance.cpp" />
-    <ClCompile Include="Core\Render\DPolygon.cpp" />
-    <ClCompile Include="Core\Math\DVector.cpp" />
-    <ClCompile Include="Core\Button.cpp" />
-    <ClCompile Include="Core\Render\DVertex.cpp" />
-    <ClCompile Include="Core\Math\DPoint.cpp" />
-    <ClCompile Include="Core\Math\DLine.cpp" />
-    <ClCompile Include="Core\Engine.cpp" />
-    <ClCompile Include="Core\InputManager.cpp" />
-    <ClCompile Include="Core\Render\Color.cpp" />
+    <ClCompile Include="AE\AE.cpp" />
+    <ClCompile Include="AE\Field.cpp" />
     <ClCompile Include="glad.c" />
-    <ClCompile Include="Core\IClickable.cpp" />
-    <ClCompile Include="Core\Render\IDrawable.cpp" />
-    <ClCompile Include="Core\IDSUMember.cpp" />
-    <ClCompile Include="Core\Player.cpp" />
-    <ClCompile Include="Core\Render\Shader.cpp" />
-    <ClCompile Include="Core\Render\Renderer.cpp" />
-    <ClCompile Include="Core\Render\Vertex.cpp" />
-    <ClCompile Include="Core\Math\MathHelper.cpp" />
-    <ClCompile Include="Core\Render\RenderManager.cpp" />
-    <ClCompile Include="Core\ResourceSystem.cpp" />
-    <ClCompile Include="Core\Render\Renderable.cpp" />
-    <ClCompile Include="Core\Menu.cpp" />
-    <ClCompile Include="Core\Scene.cpp" />
-    <ClCompile Include="Core\Render\Text.cpp" />
-    <ClCompile Include="Core\SceneManager.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\External\stb_image.h" />
-    <ClInclude Include="Core\GameInstance.h" />
-    <ClInclude Include="Core\precomp.h" />
-    <ClInclude Include="Core\Render\DPolygon.h" />
-    <ClInclude Include="Core\Math\DVector.h" />
-    <ClInclude Include="Core\Button.h" />
-    <ClInclude Include="Core\Render\DVertex.h" />
-    <ClInclude Include="Core\Math\DPoint.h" />
-    <ClInclude Include="Core\Math\DLine.h" />
-    <ClInclude Include="Core\Engine.h" />
-    <ClInclude Include="Core\InputManager.h" />
-    <ClInclude Include="Core\Render\Color.h" />
-    <ClInclude Include="Core\Constants.h" />
-    <ClInclude Include="Core\IClickable.h" />
-    <ClInclude Include="Core\Render\IDrawable.h" />
-    <ClInclude Include="Core\IDSUMember.h" />
-    <ClInclude Include="Core\Player.h" />
-    <ClInclude Include="Core\Render\Shader.h" />
-    <ClInclude Include="Core\Render\Renderer.h" />
-    <ClInclude Include="Core\Render\Vertex.h" />
-    <ClInclude Include="Core\Math\MathHelper.h" />
-    <ClInclude Include="Core\Render\RenderManager.h" />
-    <ClInclude Include="Core\ResourceSystem.h" />
-    <ClInclude Include="Core\Render\Renderable.h" />
-    <ClInclude Include="Core\Menu.h" />
-    <ClInclude Include="Core\Scene.h" />
-    <ClInclude Include="Core\Render\Text.h" />
-    <ClInclude Include="Core\SceneManager.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="AE\AE.h" />
+    <ClInclude Include="AE\Field.h" />
     <ClInclude Include="stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="arial.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Camera.fs" />
@@ -224,7 +167,6 @@
     <None Include="Default.vs" />
     <None Include="hex.fs" />
     <None Include="hex.vs" />
-    <None Include="README.md" />
     <None Include="TextShader.fs" />
     <None Include="TextShader.vs" />
     <None Include="Texture.fs" />
@@ -237,11 +179,9 @@
     <None Include="Triangle3.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="arial.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="kosh.jpeg" />
-    <Image Include="restart.JPG" />
+    <ProjectReference Include="..\DodEngine\DodEngine.vcxproj">
+      <Project>{7c626ecc-f723-41dd-ae06-27498489ddf2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

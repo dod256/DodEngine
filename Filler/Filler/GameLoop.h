@@ -1,16 +1,16 @@
 #pragma once
-#include "..\Core\Player.h"
-#include "..\Core\GameInstance.h"
-#include "..\Core\Render\Renderer.h"
-#include "..\Core\Button.h"
-#include "..\Core\Render\Renderable.h"
+#include "Core\Player.h"
+#include "Core\GameInstance.h"
+#include "Core\Render\Renderer.h"
+#include "Core\Button.h"
+#include "Core\Render\Renderable.h"
 
-#include "..\Core\ResourceSystem.h"
-#include "..\Core\Render\RenderManager.h"
+#include "Core\ResourceSystem.h"
+#include "Core\Render\RenderManager.h"
 
 
 #include "Filler_Field.h"
-#include "..\Core\Menu.h"
+#include "Core\Menu.h"
 
 class ResetGameButton;
 

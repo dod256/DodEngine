@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include"Constants.h"
-#include "..\Core\Render\RenderManager.h"
+#include "Core\Render\RenderManager.h"
 
 void Filler_Field::Hex::SetColor(Color color)
 {

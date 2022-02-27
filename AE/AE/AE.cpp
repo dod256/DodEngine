@@ -1,6 +1,6 @@
 #include "AE.h"
-#include "../Core/Render/RenderManager.h"
-#include "../Core/InputManager.h"
+#include "Core/Render/RenderManager.h"
+#include "Core/InputManager.h"
 
 void AE::Terminate()
 {

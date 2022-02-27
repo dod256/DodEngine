@@ -1,6 +1,6 @@
 #include "Field.h"
 #include <iostream>
-#include "..\Core\Render\RenderManager.h"
+#include "Core\Render\RenderManager.h"
 
 Field::~Field()
 {

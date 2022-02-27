@@ -1,8 +1,8 @@
 #include "ColorSelection.h"
 #include <algorithm>
 #include <iostream>
-#include "..\Core\Render\Renderer.h"
-#include "..\Core\Math\MathHelper.h"
+#include "Core\Render\Renderer.h"
+#include "Core\Math\MathHelper.h"
 
 ColorSelection::ColorSelection(const std::vector<DVertex>& vertices, std::function<void(Color color)>& onClickFunc, Color color)
 {

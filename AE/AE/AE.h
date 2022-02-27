@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\Core\GameInstance.h"
+#include "Core\GameInstance.h"
 #include "Field.h"
 
 class AE : public GameInstance
